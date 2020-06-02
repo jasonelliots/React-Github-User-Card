@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
 import axios from "axios";
+import { UncontrolledCollapse, Button, Col, Container, Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle,} from 'reactstrap';
 
 class App extends React.Component {
   state = {
@@ -30,25 +32,35 @@ class App extends React.Component {
     // console.log(this.state.followers)
     // console.log(this.state.user)
     return (
-      <div className="card">
-        <img src={this.state.user.avatar_url} alt="avatar" />
-        <div className="card-info">
-          <h1>{this.state.user.name}</h1>
-          <p className="username">{this.state.user.login}</p>
+      <Container>
+     
+        <Col sm="12" md={{ size: 6, offset: 3 }}>
+        <h2>{this.state.user.name}</h2>
+        <Button color="secondary" id="toggler" style={{ marginBottom: '1rem' }}>
+      Show User Info
+    </Button>
+    <UncontrolledCollapse toggler="#toggler">
+        <Card className="block-example border border-dark">
+        <img src={this.state.user.avatar_url} alt="avatar" width='100%' />
+        <CardBody>
+          <p>{this.state.user.login}</p>
           <p>Location: {this.state.user.location}</p>
           <p>
-            Profile:
+            Profile: 
             <a href={this.state.user.url}>{this.state.user.url}</a>
           </p>
-          <p>Followers: {this.state.user.followers}</p>
-          <p>Following: {this.state.user.following}</p>
+          {/* <p>Followers: {this.state.user.followers}</p>
+          <p>Following: {this.state.user.following}</p> */}
           <p>Bio: {this.state.user.bio}</p>
-        </div>
-        <h2>Followers:</h2>
+          <h2>Followers:</h2>
         {this.state.followers.map((follower) => (
           <p key={follower.id}>{follower.login}</p>
         ))}
-      </div>
+        </CardBody>
+        </Card>
+        </UncontrolledCollapse>
+        </Col>
+      </Container>
     );
   }
 }
